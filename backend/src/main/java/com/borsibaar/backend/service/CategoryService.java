@@ -19,6 +19,11 @@ public class CategoryService {
 
     public CategoryResponse categoryResponse(CategoryRequest request) {
         Category category = categoryMapper.toEntity(request);
+
+        // TODO: replace with your tenant/org provider (e.g., from JWT claim)
+        Long orgId = 1L; // ← temporary: hard-code for local testing
+        category.setOrganizationId(orgId);
+
         Category saved = categoryRepository.save(category);
         return categoryMapper.toResponse(saved);
     }

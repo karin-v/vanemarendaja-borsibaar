@@ -8,10 +8,17 @@ import lombok.Setter;
 @Table(name = "categories")
 @Getter @Setter
 public class Category {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 120)
+    @Column(name = "organization_id", nullable = false)
+    private Long organizationId;
+
+    @Column(nullable = false, length = 120)
     private String name;
+
+    @Column(name = "dynamic_pricing", nullable = false)
+    private boolean dynamicPricing;
 
 }
