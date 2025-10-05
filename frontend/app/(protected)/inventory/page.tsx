@@ -135,9 +135,10 @@ export default function Inventory() {
         productForm.initialQuantity &&
         parseFloat(productForm.initialQuantity) > 0
       ) {
-        await fetch("/api/inventory/add", {
+        await fetch("/api/backend/inventory/add", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify({
             productId: newProduct.id,
             quantity: parseFloat(productForm.initialQuantity),
