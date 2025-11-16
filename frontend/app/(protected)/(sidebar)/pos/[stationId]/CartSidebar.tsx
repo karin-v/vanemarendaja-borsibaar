@@ -35,8 +35,43 @@ export function CartSidebar({
     0
   );
 
+  const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
-    <div className="w-full lg:w-80 bg-card rounded-lg shadow-sm p-6">
+    <>
+      {/* Compact sticky cart bar for smaller screens */}
+      {cart.length > 0 && (
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-gray-700 shadow-lg">
+          <div className="max-w-full mx-auto px-4 py-3">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3 flex-1 min-w-0">
+                <ShoppingCart className="w-5 h-5 text-green-400 flex-shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm text-gray-400">
+                    {itemCount} {itemCount === 1 ? "item" : "items"}
+                  </div>
+                  <div className="text-lg font-bold text-gray-100">
+                    ${cartTotal.toFixed(2)}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <Button
+                  onClick={onProcessSale}
+                  disabled={isProcessingSale}
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                  size="sm"
+                >
+                  {isProcessingSale ? "Processing..." : "Sell"}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Full cart sidebar */}
+      <div className="w-full lg:w-80 bg-card rounded-lg shadow-sm p-6 lg:sticky lg:top-6 lg:self-start">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-gray-100">Cart</h2>
         <DollarSign className="w-6 h-6 text-green-400" />
@@ -138,6 +173,7 @@ export function CartSidebar({
           </div>
         </>
       )}
-    </div>
+      </div>
+    </>
   );
 }
