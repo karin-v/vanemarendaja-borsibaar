@@ -36,7 +36,7 @@ build-frontend:
   script:
     - cd frontend
     - npm ci
-    - npm run build:prod
+    - npm run build
   artifacts:
     paths:
       - frontend/out/
