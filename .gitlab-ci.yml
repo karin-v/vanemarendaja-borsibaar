@@ -82,12 +82,18 @@ deploy-job:
         exit 1
       fi
 
-      # Copy environment file if exists
-      if [ -f .env.production ]; then
-        cp .env.production .env
-      fi
+       # Copy environment file if exists
+       if [ -f .env.production ]; then
+         cp .env.production .env
+       fi
 
-      # Clean/repair builder cache and avoid BuildKit flakiness
+       # Copy SSL certificates from Let's Encrypt to project directory
+       sudo mkdir -p nginx/ssl
+       sudo cp -rL /etc/letsencrypt/live/borsibaar.zapto.org/* nginx/ssl/
+       sudo chmod -R 644 nginx/ssl/*
+       sudo chown -R $USER:$USER nginx/ssl/
+
+       # Clean/repair builder cache and avoid BuildKit flakiness
       sudo systemctl restart docker
       docker buildx prune -af || true
       docker builder prune -af || true

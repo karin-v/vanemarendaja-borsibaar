@@ -3,3 +3,8 @@ backend/.env
 .idea/
 
 .vscode/
+
+# SSL certificates (copied during deployment, not committed)
+nginx/ssl/
+*.pem
+*.key

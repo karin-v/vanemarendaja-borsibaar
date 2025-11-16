@@ -65,9 +65,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
-      # Mount Let's Encrypt cersificates from host
-      - /etc/letsencrypt/live/borsibaar.zapto.org:/etc/nginx/ssl:ro
-      - /etc/letsencrypt/archive/borsibaar.zapto.org:/etc/nginx/ssl-archive:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
     depends_on:
       - frontend
       - backend
